@@ -1,22 +1,28 @@
 PODS:
   - Flutter (1.0.0)
+  - GameSparks (0.5.0)
   - gsbridge (0.0.1):
     - Flutter
+    - GameSparks
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - GameSparks (from `gamesparks-ios-sdk`)
   - gsbridge (from `.symlinks/plugins/gsbridge/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  GameSparks:
+    :path: gamesparks-ios-sdk
   gsbridge:
     :path: ".symlinks/plugins/gsbridge/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  gsbridge: e5ad1a4fff004ea1e5d3c1b904f698acbff679dc
+  GameSparks: a406f8ae931ec3ea70c49d59136de1972ad86076
+  gsbridge: e06c76a220ed3e6de14eaf231d4e00b55a160c1d
 
-PODFILE CHECKSUM: 3dbe063e9c90a5d7c9e4e76e70a821b9e2c1d271
+PODFILE CHECKSUM: cb3f47290e9ccbd76f0d5767a72a24745002ae8b
 
 COCOAPODS: 1.9.1
