@@ -38,11 +38,11 @@ class _LoginPageState extends State<LoginPage> {
 
       try {
         Map<String, dynamic> result = await Gsbridge.authenticate(
-            usernameController.text, usernameController.text);
+            usernameController.text, passwordController.text);
         if (result["status"] == Gsbridge.STATUS_SUCCESS) {
-          setState(() {
-            isLoggedIn = true;
-          });
+          isLoggingIn = false;
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewGamePage()));
         } else if (result["status"] == Gsbridge.STATUS_FAILURE) {
           setState(() {
             loginErrorMessage = "Login failed, please try again!";
@@ -58,29 +58,21 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> pushCreateAccount() async {
+  Future<void> pushRegistrationPage() async {
     if (!isLoggingIn) {
       await Navigator.push(context,
-          MaterialPageRoute(builder: (context) => CreateAccountPage()))
+          MaterialPageRoute(builder: (context) => RegistrationPage()))
           .then((result) {
-        if (result == CreateAccountPage.RESULT_SUCCESS) {
-          pushNewGame();
+        if (result == RegistrationPage.RESULT_SUCCESS) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewGamePage()));
         }
       });
     }
   }
 
-  void pushNewGame() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => NewGamePage()));
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (isLoggedIn) {
-      pushNewGame();
-    }
-
     return Scaffold(
         body: Padding(
             padding: EdgeInsets.all(8.0),
@@ -117,11 +109,12 @@ class _LoginPageState extends State<LoginPage> {
                         RaisedButton(
                             child:
                             Text(isLoggingIn ? "Logging in..." : "Login"),
-                            onPressed: () => login
+                            onPressed: () {login();}
                         ),
                         FlatButton(
-                            child: Text("Create account"),
-                            onPressed: pushCreateAccount),
+                            child: Text("Register new account"),
+                            onPressed: () {pushRegistrationPage();}
+                        ),
                         Text(loginErrorMessage)
                       ],
                     )))));

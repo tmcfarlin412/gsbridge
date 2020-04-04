@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0b070fa4-2cc8-4023-a882-a1d46e861796" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/lamptom/gsbridge/gsbridge/GsbridgePlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/lamptom/gsbridge/gsbridge/GsbridgePlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gsbridge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/gsbridge.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/GsbridgePlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/GsbridgePlugin.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/createAccount.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/createAccount.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/login.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/gsbridge.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/gsbridge.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -68,7 +65,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -76,6 +75,23 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/example/lib/createAccount.dart</url>
+          <line>91</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/gsbridge.dart</url>
+          <line>32</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/gsbridge.dart</url>
+          <line>34</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="dart-exception" />
       </default-breakpoints>

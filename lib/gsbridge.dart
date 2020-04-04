@@ -26,7 +26,7 @@ class Gsbridge {
   }
 
   static Future<Map<String, dynamic>> registration (String displayName, String language, String username, String password) async {
-    final Map<String, dynamic> result = await _channel.invokeMethod('registration', <String, dynamic>{
+    final Map<String, dynamic> result = await _channel.invokeMapMethod('registration', <String, dynamic>{
       'displayName': displayName,
       'language': language,
       'username': username,
