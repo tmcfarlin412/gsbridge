@@ -10,8 +10,17 @@
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"getPlatformVersion" isEqualToString:call.method]) {
-    result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
+  if ([@"authenticate" isEqualToString:call.method]) {
+     NSDictionary<NSString *, id> *_result = @{
+                @"status" : @"success",
+                @"authToken" : @"",
+                @"displayName" : @"",
+                @"authToken" : @"",
+                @"newPlayer" : @"",
+                @"switchSummary" : @"",
+                @"userId" : @"",
+            };
+     result(_result);
   } else {
     result(FlutterMethodNotImplemented);
   }
