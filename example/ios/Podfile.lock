@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - gsbridge (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - gsbridge (from `.symlinks/plugins/gsbridge/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  gsbridge:
+    :path: ".symlinks/plugins/gsbridge/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  gsbridge: e5ad1a4fff004ea1e5d3c1b904f698acbff679dc
+
+PODFILE CHECKSUM: 3dbe063e9c90a5d7c9e4e76e70a821b9e2c1d271
+
+COCOAPODS: 1.9.1
