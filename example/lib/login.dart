@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         FlatButton(
                             child: Text("Register new account"),
-                            onPressed: () {pushRegistrationPage();}
+                            onPressed: pushRegistrationPage
                         ),
                         Text(loginErrorMessage)
                       ],

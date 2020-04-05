@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import "dart:convert";
 
 class Gsbridge {
   static const MethodChannel _channel =
@@ -33,6 +34,9 @@ class Gsbridge {
       'password': password,
     });
     authToken = result["authToken"];
+    if (result.containsKey("errors")) {
+      result["errors"] = jsonDecode(result["errors"]);
+    }
     return result;
   }
 }

@@ -25,11 +25,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
           Navigator.pop(context, RegistrationPage.RESULT_SUCCESS);
         } else if (result["status"] == Gsbridge.STATUS_FAILURE) {
           setState(() {
-            errorMessage = "Registration failed, please try again!";
+            if (result["errors"]["USERNAME"] == "TAKEN") {
+              errorMessage = "That username is already taken";
+            } else {
+              errorMessage = "Registration failed, please try again";
+            }
             isRegistering = false;
           });
         }
-      } on PlatformException {
+      } on PlatformException catch(e) {
         setState(() {
           errorMessage = "Registration failed, please try again";
           isRegistering = false;
