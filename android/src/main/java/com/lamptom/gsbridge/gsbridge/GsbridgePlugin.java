@@ -1,27 +1,21 @@
 package com.lamptom.gsbridge.gsbridge;
 
-import android.media.MediaRouter;
-import android.telecom.Call;
+import android.app.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Lifecycle;
 
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.android.GSAndroidPlatform;
+import com.gamesparks.sdk.api.AbstractResponse;
 import com.gamesparks.sdk.api.autogen.GSResponseBuilder;
-import com.gamesparks.sdk.api.autogen.GSTypes;
 
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import io.flutter.BuildConfig;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
-import io.flutter.embedding.engine.plugins.lifecycle.HiddenLifecycleReference;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -33,22 +27,17 @@ import io.flutter.embedding.engine.plugins.activity.ActivityAware;
  * GsbridgePlugin
  */
 public class GsbridgePlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
-    final static String STATUS_SUCCESS = "success";
-    final static String STATUS_FAILURE = "failure";
-    final static String STATUS_FAILURE_REGISTRATION_USER_TAKEN = "failure - username taken";
+    final static private String STATUS_SUCCESS = "success";
+    final static private String STATUS_FAILURE = "failure";
+
+    static private Activity activity;
+
+    static String KEY_STATUS = "status";
+    static String KEY_ERRORS = "errors";
 
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
-        boolean liveMode = false;
-        boolean autoUpdate = true;
-        HiddenLifecycleReference reference = (HiddenLifecycleReference) binding.getLifecycle();
-        GSAndroidPlatform.initialise(binding.getActivity(), "q391231asyX3", "sCLhBW8pr4a1gbRv5t2labw07pJST6Jf", "device", liveMode, autoUpdate);
-        GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
-            @Override
-            public void onEvent(Boolean _available) {
-            }
-        });
-        GSAndroidPlatform.gs().start();
+        activity = binding.getActivity();
     }
 
     @Override
@@ -56,7 +45,7 @@ public class GsbridgePlugin implements FlutterPlugin, MethodCallHandler, Activit
     }
 
     @Override
-    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
     }
 
     @Override
@@ -86,49 +75,88 @@ public class GsbridgePlugin implements FlutterPlugin, MethodCallHandler, Activit
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull final Result result) {
-        if (call.method.equals("getPlatformVersion")) {
-            result.success("Android " + android.os.Build.VERSION.RELEASE);
-        } else if (call.method.equals("authenticate")) {
-            authenticate((String) call.argument("username"), (String) call.argument("password"), new Callback() {
-                @Override
-                public void onSuccess(Object _result) {
-                    result.success(_result);
-                }
+        switch (call.method) {
+            case "initialize":
+                boolean liveMode = false;
+                boolean autoUpdate = true;
 
-                @Override
-                public void onFailure(Object _result) {
-                    result.error(STATUS_FAILURE, "Authentication error", _result);
-                }
-            });
-        } else if (call.method.equals("registration")) {
-            GSAndroidPlatform.gs().getRequestBuilder().createRegistrationRequest()
-                    .setDisplayName((String) call.argument("displayName"))
-                    .setUserName( (String) call.argument("username"))
-                    .setPassword((String) call.argument("password"))
-                    .send(new GSEventConsumer<GSResponseBuilder.RegistrationResponse>() {
-                        @Override
-                        public void onEvent(GSResponseBuilder.RegistrationResponse response) {
-                            Map<String, Object> _result = new HashMap<>();
-                            if (!response.hasErrors()) {
-                                _result.put("status", STATUS_SUCCESS);
-                                _result.put("authToken", response.getAuthToken());
-                                _result.put("displayName", response.getDisplayName());
-                                _result.put("newPlayer", response.getNewPlayer());
-                                _result.put("switchSummary", response.getSwitchSummary());
-                                _result.put("userId", response.getUserId());
-
-                                result.success(_result);
-                            } else {
-                                JSONObject error = ((JSONObject) response.getBaseData().get("error"));
-                                _result.put("status", STATUS_FAILURE);
-                                _result.put("errors", error.toJSONString());
-                                result.success(_result);
-                            }
+                GSAndroidPlatform.initialise(activity, "q391231asyX3", "sCLhBW8pr4a1gbRv5t2labw07pJST6Jf", "device", liveMode, autoUpdate);
+                GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
+                    @Override
+                    public void onEvent(Boolean _available) {
+                        if (_available) {
+                            result.success(STATUS_SUCCESS);
+                        } else {
+                            result.success(STATUS_FAILURE);
                         }
-                    });
-        } else {
-            result.notImplemented();
+                    }
+                });
+                GSAndroidPlatform.gs().start();
+                break;
+            case "authenticate":
+                GSAndroidPlatform.gs().getRequestBuilder().createAuthenticationRequest()
+                        .setPassword((String) call.argument("password"))
+                        .setUserName((String) call.argument("username"))
+                        .send(new GSEventConsumer<GSResponseBuilder.AuthenticationResponse>() {
+                            @Override
+                            public void onEvent(GSResponseBuilder.AuthenticationResponse response) {
+                                if (!response.hasErrors()) {
+                                    Map<String, Object> _result = new HashMap<>();
+                                    _result.put("status", STATUS_SUCCESS);
+                                    _result.put("authToken", response.getAuthToken());
+                                    _result.put("displayName", response.getDisplayName());
+                                    _result.put("newPlayer", response.getNewPlayer());
+                                    _result.put("switchSummary", response.getSwitchSummary());
+                                    _result.put("userId", response.getUserId());
+
+                                    // TODO serialize: Player switchSummary = response.getSwitchSummary();
+                                } else {
+                                    prepareAndSendErrorResponse(result, response);
+                                }
+                            }
+                        });
+                break;
+            case "registration":
+                GSAndroidPlatform.gs().getRequestBuilder().createRegistrationRequest()
+                        .setDisplayName((String) call.argument("displayName"))
+                        .setUserName((String) call.argument("username"))
+                        .setPassword((String) call.argument("password"))
+                        .send(new GSEventConsumer<GSResponseBuilder.RegistrationResponse>() {
+                            @Override
+                            public void onEvent(GSResponseBuilder.RegistrationResponse response) {
+                                if (!response.hasErrors()) {
+                                    Map<String, Object> _result = new HashMap<>();
+                                    _result.put("status", STATUS_SUCCESS);
+                                    _result.put("authToken", response.getAuthToken());
+                                    _result.put("displayName", response.getDisplayName());
+                                    _result.put("newPlayer", response.getNewPlayer());
+                                    _result.put("switchSummary", response.getSwitchSummary());
+                                    _result.put("userId", response.getUserId());
+
+                                    result.success(_result);
+                                } else {
+                                    prepareAndSendErrorResponse(result, response);
+                                }
+                            }
+                        });
+                break;
+            default:
+                result.notImplemented();
+                break;
         }
+    }
+
+    private void prepareAndSendErrorResponse(@NonNull final Result result, AbstractResponse response) {
+        Map<String, Object> _result = new HashMap<>();
+        _result.put("status", STATUS_FAILURE);
+
+        // Convert error to JSON object, add to result
+        JSONObject error = ((JSONObject) response.getBaseData().get("error"));
+        if (error != null) {
+            _result.put("errors", error.toJSONString());
+        }
+
+        result.success(_result);
     }
 
     @Override

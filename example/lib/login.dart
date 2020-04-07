@@ -31,25 +31,35 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> login() async {
+
+    // Only allow 1 login attempt at a time
     if (!isLoggingIn) {
       setState(() {
         isLoggingIn = true;
       });
 
       try {
+
         Map<String, dynamic> result = await Gsbridge.authenticate(
             usernameController.text, passwordController.text);
         if (result["status"] == Gsbridge.STATUS_SUCCESS) {
+
+          // Start new game
           isLoggingIn = false;
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => NewGamePage()));
+
         } else if (result["status"] == Gsbridge.STATUS_FAILURE) {
+
+          // Failed
           setState(() {
             loginErrorMessage = "Login failed, please try again!";
             isLoggingIn = false;
           });
         }
       } on PlatformException {
+
+        // Failed
         setState(() {
           loginErrorMessage = "Login failed, please try again";
           isLoggingIn = false;
@@ -109,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                         RaisedButton(
                             child:
                             Text(isLoggingIn ? "Logging in..." : "Login"),
-                            onPressed: () {login();}
+                            onPressed: login
                         ),
                         FlatButton(
                             child: Text("Register new account"),

@@ -7,11 +7,10 @@
     <list default="true" id="0b070fa4-2cc8-4023-a882-a1d46e861796" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/src/main/java/com/lamptom/gsbridge/gsbridge/GsbridgePlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/lamptom/gsbridge/gsbridge/GsbridgePlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner/main.m" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner/main.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/createAccount.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/createAccount.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/lib/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/login.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/GsbridgePlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/GsbridgePlugin.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/gsbridge.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/gsbridge.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/gsbridge_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/gsbridge_test.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +19,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_API_28" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -31,12 +37,15 @@
     </option>
   </component>
   <component name="ProjectId" id="1a3q8epxlbDNZZv2j1lIAQDYYNf" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
@@ -115,9 +124,18 @@
           <line>36</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/example/lib/login.dart</url>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/example/lib/splash.dart</url>
+          <line>47</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/android/src/main/java/com/lamptom/gsbridge/gsbridge/GsbridgePlugin.java</url>
-          <line>153</line>
+          <line>181</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
@@ -129,6 +147,7 @@
       <configuration name="FlutterRunConfigurationType">
         <watch expression="result[&quot;status&quot;]" language="Dart" />
         <watch expression="result[&quot;errors&quot;][&quot;USERNAME&quot;]" language="Dart" />
+        <watch expression="Navigator.of(context)" language="Dart" />
       </configuration>
     </watches-manager>
   </component>

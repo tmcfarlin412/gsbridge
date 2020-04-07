@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gsbridge_example/login.dart';
+import 'package:gsbridge_example/splash.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      home: SplashPage(),
     );
   }
 }

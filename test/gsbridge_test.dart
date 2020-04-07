@@ -17,7 +17,6 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await Gsbridge.platformVersion, '42');
+  test('initialize', () async {
   });
 }
